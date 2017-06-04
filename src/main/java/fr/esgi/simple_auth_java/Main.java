@@ -1,3 +1,5 @@
+package fr.esgi.simple_auth_java;
+
 /**
  * Created by lairan on 04/06/2017.
  */
