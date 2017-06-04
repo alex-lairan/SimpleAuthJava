@@ -3,8 +3,15 @@ package fr.esgi.simple_auth_java.reset;
 import fr.esgi.simple_auth_java.User;
 
 /**
- * Created by Blixel on 04/06/2017.
+ * Definition of system for Reset the {@link User}'s id (ex: password).
+ *
+ * @author Tristan
+ * @see User
  */
 public interface Reseter {
+    /**
+     * Reset identification of a user
+     * @param user {@link User} to reset
+     */
     void reset(User user);
 }

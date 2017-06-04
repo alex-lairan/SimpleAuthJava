@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * Created by Blixel on 04/06/2017.
+ * User bean.
+ *
+ * @author Tristan
  */
 @Data
 public class User {
