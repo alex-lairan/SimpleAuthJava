@@ -13,5 +13,5 @@ public interface Forgetor {
      * Reset identification of a user
      * @param user {@link User} to reset
      */
-    void reset(User user);
+    void reset(User user) throws IllegalResetException, ForgetException;
 }
