@@ -2,9 +2,14 @@ package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.auth.Authentificator;
 import fr.esgi.simple_auth_java.register.Registor;
+<<<<<<< HEAD
 import fr.esgi.simple_auth_java.reset.IllegalResetException;
 import fr.esgi.simple_auth_java.reset.ResetException;
 import fr.esgi.simple_auth_java.reset.Resetor;
+=======
+import fr.esgi.simple_auth_java.register.SignUpException;
+import fr.esgi.simple_auth_java.reset.Forgetor;
+>>>>>>> Minor fixes
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
@@ -40,7 +45,7 @@ public final class Manager {
     /**
      * Sign In a user with a system
      * @param authentificator the system / implementation
-     * @return th user identified
+     * @return the user identified
      */
     public User signIn(@NonNull final Authentificator authentificator) {
         log.trace("signIn with {}", authentificator);
