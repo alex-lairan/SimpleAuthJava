@@ -22,13 +22,13 @@ public abstract class DBConnection {
      * Set a connection to a database
      * @return The Connection object
      */
-    protected Connection dbConnect() {
-        String url = "jdbc:sqlite:C:\\Users\\Olivier\\IdeaProjects\\SimpleAuthJava\\src\\main\\resources\\database.db";
+    protected Connection dbConnect(String path) throws SQLException {
+        String url = "jdbc:sqlite:".concat(path);
         try {
             // Create a connection to the database
             dbConnection = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            throw new SQLException("Error while attempting connection to the database.", ex);
         }
         return dbConnection;
     }
