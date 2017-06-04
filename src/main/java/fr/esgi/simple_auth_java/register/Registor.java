@@ -8,7 +8,7 @@ import fr.esgi.simple_auth_java.User;
  * @author Tristan
  * @see User
  */
-public interface Register {
+public interface Registor {
     /**
      * Sign Up a user
      * @return the new {@link User}

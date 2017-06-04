@@ -1,8 +1,8 @@
 package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.auth.Authentificator;
-import fr.esgi.simple_auth_java.register.Register;
-import fr.esgi.simple_auth_java.reset.Reseter;
+import fr.esgi.simple_auth_java.register.Registor;
+import fr.esgi.simple_auth_java.reset.Forgetor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
@@ -11,9 +11,9 @@ import lombok.ToString;
  * Manage actions on a user.
  *
  * @author Tristan
- * @see Register
+ * @see Registor
  * @see Authentificator
- * @see Reseter
+ * @see Forgetor
  * @see User
  */
 @EqualsAndHashCode
@@ -21,11 +21,11 @@ import lombok.ToString;
 public final class Manager {
     /**
      * Sign up a user with a system
-     * @param register the system / implementation
+     * @param registor the system / implementation
      * @return the new user
      */
-    public User signUp(@NonNull final Register register) {
-        return register.signUp();
+    public User signUp(@NonNull final Registor registor) {
+        return registor.signUp();
     }
 
     /**
@@ -40,9 +40,9 @@ public final class Manager {
     /**
      * Reset user's id with a system
      * @param user the user to reset
-     * @param reseter the system / implementation
+     * @param forgetor the system / implementation
      */
-    public void reset(@NonNull User user, @NonNull final Reseter reseter) {
-        reseter.reset(user);
+    public void reset(@NonNull User user, @NonNull final Forgetor forgetor) {
+        forgetor.reset(user);
     }
 }
