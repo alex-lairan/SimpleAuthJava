@@ -30,7 +30,7 @@ public class ManagerTest {
     }
 
     @Test
-    public void signUp() throws Exception {
+    public void should_only_signUp() throws Exception {
         Registor regist = mock(Registor.class);
         when(regist.signUp()).thenReturn(user);
         assertThat(manager.signUp(regist)).isSameAs(user);
@@ -39,7 +39,7 @@ public class ManagerTest {
     }
 
     @Test
-    public void signIn() throws Exception {
+    public void should_only_signIn() throws Exception {
         Authentificator auth = mock(Authentificator.class);
         when(auth.signIn()).thenReturn(user);
         assertThat(manager.signIn(auth)).isSameAs(user);
@@ -48,7 +48,7 @@ public class ManagerTest {
     }
 
     @Test
-    public void reset() throws Exception {
+    public void should_only_reset() throws Exception {
         Forgetor forgetor = mock(Forgetor.class);
         doNothing().when(forgetor).reset(user);
         doNothing().when(forgetor).reset(anyObject()); //doThrow ?
