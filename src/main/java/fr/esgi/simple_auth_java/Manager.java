@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.io.IOException;
+
 /**
  * Manage actions on a user.
  *
@@ -24,7 +26,7 @@ public final class Manager {
      * @param registor the system / implementation
      * @return the new user
      */
-    public User signUp(@NonNull final Registor registor) {
+    public User signUp(@NonNull final Registor registor) throws IOException {
         return registor.signUp();
     }
 
