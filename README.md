@@ -11,9 +11,11 @@
 
 ## Groups
 
-- Partie `Sign in` Binome : [Alexandre Lairan](https://github.com/alex-lairan) & [Amélie Certin](https://github.com/amelie-certin) 
-- Partie `Reset password` Binome : [Yohan Fairfort](https://github.com/hyde777) & [Tristan Chuine](https://github.com/TristanEduProjet)
-- Partie `Sign up` Binome : [Nicolas Cornu](https://github.com/maill) & [Olivier Lefebvre](https://github.com/olivierLefebvre96)
+| Partie | Binôme |
+| --- | --- |
+| Sign in | [Alexandre Lairan](https://github.com/alex-lairan) & [Amélie Certin](https://github.com/amelie-certin) |
+| Reset password | [Yohan Fairfort](https://github.com/hyde777) & [Tristan Chuine](https://github.com/TristanEduProjet) |
+| Sign up | [Nicolas Cornu](https://github.com/maill) & [Olivier Lefebvre](https://github.com/olivierLefebvre96) |
 
 ## Consignes
 
