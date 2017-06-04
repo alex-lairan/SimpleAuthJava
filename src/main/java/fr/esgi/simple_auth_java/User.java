@@ -1,8 +1,7 @@
 package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.util.HashMap;
 
@@ -12,29 +11,26 @@ import java.util.HashMap;
  * @author Tristan, Alexandre
  */
 @Data
+@RequiredArgsConstructor
 public class User {
     @NonNull private String email, first_name, last_name;
     @NonNull private String password;
-    @NonNull private Boolean is_connected = false;
+    @Setter(AccessLevel.PROTECTED) @Getter(AccessLevel.PROTECTED)
+    @NonNull private Boolean isConnected = false;
 
     public User(HashMap<String, String> args) {
-        email      = args.get("email");
-        first_name = args.get("first_name");
-        last_name  = args.get("last_name");
-
-        PasswordEncrypt encryptor = new PasswordEncrypt(args.get("password"));
-        password = encryptor.encrypt();
+        this(args.get("email"), args.get("first_name"), args.get("last_name"), new PasswordEncrypt(args.get("password")).encrypt());
     }
 
     public Boolean isAuthenticated() {
-        return is_connected;
+        return this.getIsConnected();
     }
 
     public void connect() {
-        is_connected = true;
+        this.setIsConnected(true);
     }
 
     public void disconnect() {
-        is_connected = false;
+        this.setIsConnected(false);
     }
 }
