@@ -13,6 +13,6 @@ public class ForgetorPasswordWithTempPwdByMail implements Forgetor {
      */
     @Override
     public void reset(User user) throws IllegalResetException, ForgetException {
-        ;
+
     }
 }
