@@ -2,15 +2,12 @@ package fr.esgi.simple_auth_java.register;
 
 import fr.esgi.simple_auth_java.User;
 import fr.esgi.simple_auth_java.operations.DBConnection;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Created by Olivier on 04/06/2017.
@@ -28,20 +25,21 @@ public class RegisterDB extends DBConnection implements Registor{
         String lastname = null;
         String password = null;
 
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
+        //try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
+        try(Scanner in = new Scanner(System.in)){
             System.out.print("Enter an email:");
-            email = br.readLine();
+            email = in.next();
             System.out.print("Enter a firstname:");
-            firstname = br.readLine();
+            firstname = in.next();
             System.out.print("Enter a lastname:");
-            lastname = br.readLine();
+            lastname = in.next();
             System.out.print("Enter a password:");
-            password = br.readLine();
-        } catch(IOException ex){
+            password = in.next();
+        } catch(Exception ex) {
             throw new SignUpException("Error while reading console input", ex);
         }
 
-        return new User(email, firstname, lastname, new PasswordEncrypt(password).encrypt());
+        return new User(email, firstname, lastname, password);
     }
 
     /**
@@ -55,8 +53,8 @@ public class RegisterDB extends DBConnection implements Registor{
         Statement statement = null;
 
         try(Connection connection = dbConnect("..\\SimpleAuthJava\\src\\main\\resources\\database.db")) {
-            // Doesn't autocommit changes
-            connection.setAutoCommit(false);
+            // Autocommit changes
+            connection.setAutoCommit(true);
             System.out.println("Opened database successfully");
 
             // Insert a User instance into the database
@@ -67,7 +65,7 @@ public class RegisterDB extends DBConnection implements Registor{
             statement = connection.createStatement();
             statement.executeUpdate(sql);
 
-            connection.commit();
+            //connection.commit();
         } catch ( SQLException ex ) {
             throw new SignUpException("Error while inserting a user into the database.", ex);
         }
