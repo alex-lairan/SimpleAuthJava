@@ -2,7 +2,7 @@ package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.auth.Authentificator;
 import fr.esgi.simple_auth_java.register.Registor;
-import fr.esgi.simple_auth_java.reset.Forgetor;
+import fr.esgi.simple_auth_java.reset.Resetor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -49,12 +48,12 @@ public class ManagerTest {
 
     @Test
     public void should_only_reset() throws Exception {
-        Forgetor forgetor = mock(Forgetor.class);
-        doNothing().when(forgetor).reset(user);
-        doNothing().when(forgetor).reset(anyObject()); //doThrow ?
-        manager.reset(user, forgetor);
-        verify(forgetor, times(1)).reset(user);
+        Resetor resetor = mock(Resetor.class);
+        doNothing().when(resetor).reset(user);
+        doNothing().when(resetor).reset(anyObject()); //doThrow ?
+        manager.reset(user, resetor);
+        verify(resetor, times(1)).reset(user);
         //verify(user, atLeastOnce()).setPassword(any());
-        verifyNoMoreInteractions(forgetor, user);
+        verifyNoMoreInteractions(resetor, user);
     }
 }
