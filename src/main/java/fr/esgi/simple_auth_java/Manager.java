@@ -41,8 +41,9 @@ public final class Manager {
      * Reset user's id with a system
      * @param user the user to reset
      * @param resetor the system / implementation
+     * @throws Exception an error occur during reset
      */
-    public void reset(@NonNull User user, @NonNull final Resetor resetor) {
+    public void reset(@NonNull User user, @NonNull final Resetor resetor) throws Exception { //TODO: create a "ManagerException" or "OperationException"
         resetor.reset(user);
     }
 }
