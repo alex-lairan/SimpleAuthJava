@@ -5,14 +5,14 @@ import fr.esgi.simple_auth_java.User;
 /**
  * Created by Blixel on 04/06/2017.
  */
-public class ForgetorPasswordByMail implements Forgetor {
+public class ResetorPasswordWithOldPwd implements Resetor {
     /**
      * Reset identification of a user
      *
      * @param user {@link User} to reset
      */
     @Override
-    public void reset(User user) throws IllegalResetException, ForgetException {
+    public void reset(User user) throws IllegalResetException, ResetException {
         ;
     }
 }

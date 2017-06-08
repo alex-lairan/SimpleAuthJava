@@ -8,10 +8,10 @@ import fr.esgi.simple_auth_java.User;
  * @author Tristan
  * @see User
  */
-public interface Forgetor {
+public interface Resetor {
     /**
      * Reset identification of a user
      * @param user {@link User} to reset
      */
-    void reset(User user) throws IllegalResetException, ForgetException;
+    void reset(User user) throws IllegalResetException, ResetException;
 }

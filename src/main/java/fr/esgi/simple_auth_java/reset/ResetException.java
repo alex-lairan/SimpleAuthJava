@@ -7,13 +7,13 @@ import java.security.PrivilegedActionException;
  *
  * @author Tristan
  */
-public class ForgetException extends Exception {
+public class ResetException extends Exception {
     /**
      * Constructs a new exception with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause}.
      */
-    public ForgetException() {
+    public ResetException() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class ForgetException extends Exception {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public ForgetException(String message) {
+    public ResetException(String message) {
         super(message);
     }
 
@@ -42,7 +42,7 @@ public class ForgetException extends Exception {
      *                unknown.)
      * @since 1.4
      */
-    public ForgetException(String message, Throwable cause) {
+    public ResetException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -60,7 +60,7 @@ public class ForgetException extends Exception {
      *              unknown.)
      * @since 1.4
      */
-    public ForgetException(Throwable cause) {
+    public ResetException(Throwable cause) {
         super(cause);
     }
 
@@ -78,7 +78,7 @@ public class ForgetException extends Exception {
      *                           be writable
      * @since 1.7
      */
-    public ForgetException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ResetException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
