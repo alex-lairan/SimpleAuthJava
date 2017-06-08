@@ -2,6 +2,7 @@ package fr.esgi.simple_auth_java.register;
 
 import fr.esgi.simple_auth_java.User;
 import fr.esgi.simple_auth_java.operations.DBConnection;
+import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -39,7 +40,7 @@ public class RegisterDB extends DBConnection implements Registor{
             throw new SignUpException("Error while reading console input", ex);
         }
 
-        return new User(email, firstname, lastname, password);
+        return new User(email, firstname, lastname, new PasswordEncrypt(password).encrypt());
     }
 
     /**
