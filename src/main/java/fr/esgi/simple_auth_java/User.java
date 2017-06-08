@@ -5,6 +5,8 @@ import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Email;
+import org.javalite.activejdbc.Model;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,8 +24,12 @@ import java.util.HashMap;
 @Setter
 @Slf4j
 @Builder
-public class User {
-    @NotNull @NonNull @Email private String email;
+public class User extends Model {
+    static {
+        validatePresenceOf("email", "first_name", "last_name", "password");
+        validateEmailOf("email");
+    }
+    @NotNull @NonNull private String email;
     @NotNull @NonNull private String first_name, last_name;
     @NonNull private final PasswordEncrypt encryptor;
     @NotNull @NonNull @Size(min=4) private String password;
