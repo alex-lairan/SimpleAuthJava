@@ -1,13 +1,8 @@
 package fr.esgi.simple_auth_java.reset;
 
 import fr.esgi.simple_auth_java.User;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
-import lombok.NonNull;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
 
 import java.io.Console;
-import java.util.Optional;
 
 /**
  * <p>Implementation for reset password from console with the old pwd.</p>
@@ -34,7 +29,7 @@ public class ResetorPasswordWithOldPwd implements Resetor {
         {
             int nb = 0;
             while(nb < maxTry) {
-                String old = new PasswordEncrypt(String.valueOf(console.readPassword("Your old password : "))).encrypt();
+                String old = user.getEncryptor().encrypt(String.valueOf(console.readPassword("Your old password : ")));
                 if(user.getPassword().equals(old)) {
                     nb = Integer.MIN_VALUE;
                     break;
@@ -45,9 +40,9 @@ public class ResetorPasswordWithOldPwd implements Resetor {
             {
                 /* à partir d'ici, utilisateur identifié/confirmé */
                 String verif = new String();
-                String newPwd = new PasswordEncrypt(String.valueOf(console.readPassword("Your new password : "))).encrypt();
+                String newPwd = String.valueOf(console.readPassword("Your new password : "));
                 do {
-                    verif = new PasswordEncrypt(String.valueOf(console.readPassword("Confirm your password : "))).encrypt();
+                    verif = String.valueOf(console.readPassword("Confirm your password : "));
                 } while(!newPwd.equals(verif));
                 /* nouveau mdp confirmé */
                 user.setPassword(newPwd);
