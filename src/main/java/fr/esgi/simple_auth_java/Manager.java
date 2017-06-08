@@ -2,10 +2,13 @@ package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.auth.Authentificator;
 import fr.esgi.simple_auth_java.register.Registor;
+import fr.esgi.simple_auth_java.reset.IllegalResetException;
+import fr.esgi.simple_auth_java.reset.ResetException;
 import fr.esgi.simple_auth_java.reset.Resetor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Manage actions on a user.
@@ -18,6 +21,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
+@Slf4j
 public final class Manager {
     /**
      * Sign up a user with a system
@@ -25,7 +29,10 @@ public final class Manager {
      * @return the new user
      */
     public User signUp(@NonNull final Registor registor) {
-        return registor.signUp();
+        log.trace("signUp with {}", registor);
+        final User result = registor.signUp();
+        log.trace("signUp user : {}", result);
+        return result;
     }
 
     /**
@@ -34,7 +41,10 @@ public final class Manager {
      * @return th user identified
      */
     public User signIn(@NonNull final Authentificator authentificator) {
-        return authentificator.signIn();
+        log.trace("signIn with {}", authentificator);
+        final User result = authentificator.signIn();
+        log.trace("signUp user : {}", result);
+        return result;
     }
 
     /**
@@ -42,7 +52,9 @@ public final class Manager {
      * @param user the user to reset
      * @param resetor the system / implementation
      */
-    public void reset(@NonNull User user, @NonNull final Resetor resetor) {
+    public void reset(@NonNull User user, @NonNull final Resetor resetor) throws Exception {
+        log.trace("reset {} with {}", user, resetor);
         resetor.reset(user);
+        log.trace("reset end for {}", user);
     }
 }

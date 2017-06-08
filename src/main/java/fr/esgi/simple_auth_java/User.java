@@ -2,6 +2,7 @@ package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.util.HashMap;
  */
 @Data
 @RequiredArgsConstructor
+@Slf4j
 public class User {
     @NotNull @NonNull @Email private String email;
     @NotNull @NonNull private String first_name, last_name;

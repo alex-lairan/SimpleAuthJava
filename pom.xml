@@ -101,6 +101,8 @@
         <JUnitParams.version>1.1.0</JUnitParams.version>
         <assertj-core.version>3.8.0</assertj-core.version>
         <mockito-all.version>1.10.19</mockito-all.version>
+        <log.logback.version>1.2.3</log.logback.version>
+        <log.slf4j.version>1.7.25</log.slf4j.version>
     </properties>
 
     <dependencies>
@@ -152,6 +154,60 @@
             <artifactId>mockito-all</artifactId>
             <version>${mockito-all.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <!--<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${log.slf4j.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-ext</artifactId>
+            <version>${log.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${log.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${log.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${log.slf4j.version}</version>
+        </dependency>
+        <!-- final logger -->
+        <!--<dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${log.logback.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${log.logback.version}</version>
+        </dependency>
+        <!-- (hack) get empty jar instead of commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>99.0-does-not-exist</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
+            <version>99.0-does-not-exist</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>99-empty</version>
         </dependency>
     </dependencies>
 </project>
