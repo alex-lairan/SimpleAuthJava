@@ -13,8 +13,7 @@ import static org.mockito.Mockito.mock;
  */
 public class ResetTest {
 
-    @Mock
-    User testUser;
+    @Mock User testUser;
     Manager testManager = new Manager();
 
     Forgetor resetPasswordByMail = mock(ForgetorPasswordByMail.class);
