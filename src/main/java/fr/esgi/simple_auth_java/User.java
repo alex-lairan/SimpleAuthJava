@@ -1,6 +1,7 @@
 package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
+import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptDisable;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Email;
@@ -32,8 +33,13 @@ public class User extends Model {
     @NotNull @NonNull private String first_name, last_name;
     @NonNull private final PasswordEncrypt encryptor;
     @NotNull @NonNull @Size(min=4) private String password;
+    @NotNull @NonNull private int id = 0;
     @Setter(AccessLevel.PROTECTED) @Getter(AccessLevel.PROTECTED)
     private boolean isConnected = false;
+
+    public User() {
+        this("", "", "", new PasswordEncryptDisable(), "foobar");
+    }
 
     public User(HashMap<String, Object> args) {
         this((String) args.get("email"), (String) args.get("first_name"), (String) args.get("last_name"), (PasswordEncrypt) args.get("pswdEncryptor"), (String) args.get("password"));
