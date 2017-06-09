@@ -2,14 +2,13 @@ package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.auth.Authentificator;
 import fr.esgi.simple_auth_java.register.Registor;
-import fr.esgi.simple_auth_java.reset.IllegalResetException;
-import fr.esgi.simple_auth_java.reset.ResetException;
-import fr.esgi.simple_auth_java.reset.Resetor;
 import fr.esgi.simple_auth_java.register.SignUpException;
+import fr.esgi.simple_auth_java.reset.Forgetor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
 
 /**
  * Manage actions on a user.
@@ -17,12 +16,11 @@ import lombok.extern.slf4j.Slf4j;
  * @author Tristan
  * @see Registor
  * @see Authentificator
- * @see Resetor
+ * @see Forgetor
  * @see User
  */
 @EqualsAndHashCode
 @ToString
-@Slf4j
 public final class Manager {
     /**
      * Sign up a user with a system
@@ -30,10 +28,7 @@ public final class Manager {
      * @return the new user
      */
     public User signUp(@NonNull final Registor registor) throws SignUpException {
-        log.trace("signUp with {}", registor);
-        final User result = registor.signUp();
-        log.trace("signUp user : {}", result);
-        return result;
+        return registor.signUp();
     }
 
     /**
@@ -42,20 +37,15 @@ public final class Manager {
      * @return the user identified
      */
     public User signIn(@NonNull final Authentificator authentificator) {
-        log.trace("signIn with {}", authentificator);
-        final User result = authentificator.signIn();
-        log.trace("signUp user : {}", result);
-        return result;
+        return authentificator.signIn();
     }
 
     /**
      * Reset user's id with a system
      * @param user the user to reset
-     * @param resetor the system / implementation
+     * @param forgetor the system / implementation
      */
-    public void reset(@NonNull User user, @NonNull final Resetor resetor) throws Exception {
-        log.trace("reset {} with {}", user, resetor);
-        resetor.reset(user);
-        log.trace("reset end for {}", user);
+    public void reset(@NonNull User user, @NonNull final Forgetor forgetor) {
+        forgetor.reset(user);
     }
 }
