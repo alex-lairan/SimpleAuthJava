@@ -1,7 +1,6 @@
 package fr.esgi.simple_auth_java;
 
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Email;

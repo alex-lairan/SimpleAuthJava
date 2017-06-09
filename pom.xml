@@ -287,6 +287,7 @@
             <groupId>org.javalite</groupId>
             <artifactId>activejdbc</artifactId>
             <version>1.4.13</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-ext</artifactId>

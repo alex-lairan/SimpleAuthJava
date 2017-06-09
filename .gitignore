@@ -1,2 +1,4 @@
 .idea/
+target/
 SimpleAuthJava.iml
+*.db
