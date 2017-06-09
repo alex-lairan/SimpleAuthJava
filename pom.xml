@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <prerequisites>
-        <maven>3.0</maven>
+        <maven>3.2.0</maven>
     </prerequisites>
 
     <groupId>fr.esgi</groupId>
@@ -224,4 +224,53 @@
             <url>http://version99.qos.ch/</url>
         </repository>
     </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- adapte project structure for integration -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-it-source</id>
+                        <phase>process-resources</phase><!-- generate-test-source, pre-integration-test -->
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/it/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- regular/unit tests -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <!-- integration tests -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <!--<includes>
+                        <include>integr/**/*.java</include>
+                    </includes>-->
+                    <testSourceDirectory>src/it/java</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/it-classes</testClassesDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
