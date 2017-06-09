@@ -1,5 +1,7 @@
 # Projet tests unitaire
 
+[![CircleCI](https://circleci.com/gh/alex-lairan/SimpleAuthJava.svg?style=svg)](https://circleci.com/gh/alex-lairan/SimpleAuthJava)
+
 ## Authors
 
 - [Alexandre Lairan](https://github.com/alex-lairan)
