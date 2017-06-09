@@ -2,7 +2,7 @@ package fr.esgi.simple_auth_java.register;
 
 import fr.esgi.simple_auth_java.User;
 import fr.esgi.simple_auth_java.operations.DBConnection;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
+import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,7 +26,6 @@ public class RegisterDB extends DBConnection implements Registor{
         String lastname = null;
         String password = null;
 
-        //try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
         try(Scanner in = new Scanner(System.in)){
             System.out.print("Enter an email:");
             email = in.next();
@@ -39,8 +38,8 @@ public class RegisterDB extends DBConnection implements Registor{
         } catch(Exception ex) {
             throw new SignUpException("Error while reading console input", ex);
         }
-
-        return new User(email, firstname, lastname, new PasswordEncrypt(password).encrypt());
+        // Encrypte le password en SHA256 dès la création
+        return new User(email, firstname, lastname, new PasswordEncryptSHA256(), password);
     }
 
     /**
