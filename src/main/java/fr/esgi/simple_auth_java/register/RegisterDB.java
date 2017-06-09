@@ -38,7 +38,7 @@ public class RegisterDB extends DBConnection implements Registor{
         } catch(Exception ex) {
             throw new SignUpException("Error while reading console input", ex);
         }
-        // Encrypte le password en SHA256 dès la création
+        // SHA256 password encryption on Users's creation
         return new User(email, firstname, lastname, new PasswordEncryptSHA256(), password);
     }
 
