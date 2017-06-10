@@ -1,6 +1,9 @@
 package fr.esgi.simple_auth_java.reset;
 
 import fr.esgi.simple_auth_java.User;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Console;
 
@@ -11,6 +14,9 @@ import java.io.Console;
  * @author Tristan
  * @see User
  */
+@Slf4j
+@EqualsAndHashCode
+@ToString
 public class ResetorPasswordWithOldPwd implements Resetor {
     private final static int maxTry = 3;
 
@@ -29,12 +35,15 @@ public class ResetorPasswordWithOldPwd implements Resetor {
         {
             int nb = 0;
             while(nb < maxTry) {
+                log.debug("try {}", nb+1);
                 String old = user.getEncryptor().encrypt(String.valueOf(console.readPassword("Your old password : ")));
                 if(user.getPassword().equals(old)) {
                     nb = Integer.MIN_VALUE;
                     break;
                 }
+                nb++;
             }
+            log.debug("try state = {}", nb);
             if(nb > 0)
                 throw new IllegalResetException("Old password user not correct");
             {
@@ -45,6 +54,7 @@ public class ResetorPasswordWithOldPwd implements Resetor {
                     verif = String.valueOf(console.readPassword("Confirm your password : "));
                 } while(!newPwd.equals(verif));
                 /* nouveau mdp confirmé */
+                log.trace("set user password");
                 user.setPassword(newPwd);
                 System.out.println("Password changed !");
             }
