@@ -8,8 +8,10 @@
     </appender>
 
     <logger name="fr.esgi.simple_auth_java" level="ALL" />
+    <!-- org.simplejavamail.util.ConfigLoader -->
+    <!--<logger name="org.simplejavamail" level="TRACE"/>-->
 
-    <root level="info">
+    <root level="warn">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
