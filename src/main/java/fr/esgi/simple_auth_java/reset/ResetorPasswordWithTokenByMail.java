@@ -1,24 +1,36 @@
 package fr.esgi.simple_auth_java.reset;
 
 import fr.esgi.simple_auth_java.User;
+import fr.esgi.simple_auth_java.common.Mailer;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.simplejavamail.email.EmailBuilder;
 
 import java.io.Console;
 
 /**
- * <p>Implementation for reset password from console with the old pwd.</p>
- * <p>It permit only 3 try for the old password</p>
+ * <p>Implementation for reset password from console with temp pwd by mail.</p>
+ * <p>It permit only 3 try for the temporary password</p>
  *
  * @author Tristan
  * @see User
  */
-@Slf4j
 @EqualsAndHashCode
 @ToString
-public class ResetorPasswordWithOldPwd implements Resetor {
+@Slf4j
+public class ResetorPasswordWithTokenByMail implements Resetor {
     private final static int maxTry = 3;
+
+    /**
+     * For permit tests
+     */
+    @Setter(AccessLevel.PACKAGE)
+    @NonNull private Mailer mailer = Mailer.getInstance();
 
     /**
      * Reset identification of a user
@@ -28,16 +40,22 @@ public class ResetorPasswordWithOldPwd implements Resetor {
      * @throws ResetException an error occur during reset
      */
     @Override
-    public void reset(User user) throws IllegalResetException, ResetException {
+    public void reset(@NonNull final User user) throws IllegalResetException, ResetException {
         //TODO: permettre à l'utilisateur d'annulé
         System.out.println(">> Reset Password :");
         final Console console = System.console();
+        final String token = RandomStringUtils.randomAlphanumeric(10, 21);
+        {
+            System.out.println("Send temporary password by mail ...");
+            this.mailer.sendMail(new EmailBuilder().to(String.join(" ", user.getLast_name(), user.getFirst_name()), user.getEmail())
+                    .subject("Reset Password").text("Your temporary password is : " + token).build());
+        }
         {
             int nb = 0;
             while(nb < maxTry) {
                 log.debug("try {}", nb+1);
-                String old = user.getEncryptor().encrypt(String.valueOf(console.readPassword("Your old password : ")));
-                if(user.getPassword().equals(old)) {
+                String tkn = String.valueOf(console.readPassword("Your temp password : "));
+                if(token.equals(tkn)) {
                     nb = Integer.MIN_VALUE;
                     break;
                 }
@@ -45,13 +63,13 @@ public class ResetorPasswordWithOldPwd implements Resetor {
             }
             log.debug("try state = {}", nb);
             if(nb > 0)
-                throw new IllegalResetException("Old password user not correct");
+                throw new IllegalResetException("Temp password user not correct");
             {
                 /* à partir d'ici, utilisateur identifié/confirmé */
                 String verif = new String();
                 String newPwd = String.valueOf(console.readPassword("Your new password : "));
                 do {
-                    verif = String.valueOf(console.readPassword("Confirm your password : "));
+                    verif = String.valueOf(console.readPassword("Confirm your new password : "));
                 } while(!newPwd.equals(verif));
                 /* nouveau mdp confirmé */
                 log.trace("set user password");
