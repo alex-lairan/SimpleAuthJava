@@ -11,6 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -40,10 +43,10 @@ public class ManagerTest {
     @Test
     public void should_only_signIn() throws Exception {
         Authenticator auth = mock(Authenticator.class);
-        when(auth.signIn()).thenReturn(user);
+        when(auth.signIn(new HashMap<>(), new LinkedList<>())).thenReturn(user);
         assertThat(manager.signIn(auth)).isSameAs(user);
         verifyZeroInteractions(user);
-        verify(auth, times(1)).signIn();
+        verify(auth, times(1)).signIn(new HashMap<>(), new LinkedList<>());
     }
 
     @Test
