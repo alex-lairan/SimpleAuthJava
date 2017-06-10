@@ -13,9 +13,14 @@ public class AdminAuthentication implements Authenticator {
         String password = (String) map.get("password");
 
         if(!"world king".equals(secret)) { throw new AuthenticationException(); }
-        return users.stream()
-                .filter(user -> user.getEmail().equals(email))
-                .filter(user -> user.getPassword().equals(user.getEncryptor().encrypt(password)))
+        User user = users.stream()
+                .filter(u -> u.getEmail().equals(email))
                 .findAny().orElseThrow(AuthenticationException::new);
+
+        if(user.getPassword().equals(user.getEncryptor().encrypt(password))) {
+            user.connect();
+            return user;
+        }
+        throw new AuthenticationException();
     }
 }
