@@ -1,4 +1,4 @@
 .idea/
 target/
 SimpleAuthJava.iml
-*.db
+**/*.db

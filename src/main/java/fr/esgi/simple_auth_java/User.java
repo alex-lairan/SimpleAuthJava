@@ -24,16 +24,17 @@ import java.util.HashMap;
 @Setter
 @Slf4j
 @Builder
-public class User extends Model {
+final public class User extends Model {
     static {
         validatePresenceOf("email", "first_name", "last_name", "password");
         validateEmailOf("email");
     }
-    @NotNull @NonNull private String email;
+    @NotNull @NonNull @Email private String email;
     @NotNull @NonNull private String first_name, last_name;
     @NonNull private final PasswordEncrypt encryptor;
     @NotNull @NonNull @Size(min=4) private String password;
-    @NotNull @NonNull private int id = 0;
+    @Setter(AccessLevel.NONE) @Getter(AccessLevel.NONE)
+    private int id = 0;
     @Setter(AccessLevel.PROTECTED) @Getter(AccessLevel.PROTECTED)
     private boolean isConnected = false;
 
@@ -48,6 +49,17 @@ public class User extends Model {
     @ConstructorProperties({"email", "first_name", "last_name", "encryptor", "password"})
     public User(@NonNull final String email, @NonNull final String first_name, @NonNull final String last_name, @NonNull final PasswordEncrypt encryptor, @NonNull final String password) {
         this(email, first_name, last_name, encryptor, password, false);
+    }
+
+    @ConstructorProperties({"email", "first_name", "last_name", "encryptor", "password", "isConnected"})
+    protected User(@NonNull final String email, @NonNull final String first_name, @NonNull final String last_name, @NonNull final PasswordEncrypt encryptor, @NonNull final String password, final int id, final boolean is_connected) {
+        this.setEmail(email);
+        this.setFirst_name(first_name);
+        this.setLast_name(last_name);
+        this.encryptor = encryptor;
+        this.setPassword(password);
+        this.id = id;
+        this.setConnected(is_connected);
     }
 
     @ConstructorProperties({"email", "first_name", "last_name", "encryptor", "password", "isConnected"})
