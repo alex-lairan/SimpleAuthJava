@@ -96,6 +96,7 @@
         <!-- Java libs version -->
         <lombok.version>1.16.16</lombok.version>
         <simple-java-mail.version>4.2.3</simple-java-mail.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
         <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
         <javax_el.version>3.0.0</javax_el.version>
         <junit.version>4.12</junit.version>
@@ -117,6 +118,11 @@
             <groupId>org.simplejavamail</groupId>
             <artifactId>simple-java-mail</artifactId>
             <version>${simple-java-mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- Bean Validation -->
