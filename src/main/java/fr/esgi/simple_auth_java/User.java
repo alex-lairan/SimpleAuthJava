@@ -4,6 +4,7 @@ import fr.esgi.simple_auth_java.password_encrypt.PasswordEncrypt;
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hazlewood.connor.bottema.emailaddress.EmailAddressValidator;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
@@ -67,5 +68,19 @@ public class User {
      */
     public void setPassword(@NonNull final String password) {
         this.password = this.encryptor.encrypt(password);
+    }
+
+    /**
+     * Mail setter
+     * TODO : integrate to User bean and modify Tests
+     *
+     * @param email the mail address
+     * @throws Exception if address isn't valide
+     */
+    public void setEmail_(@NonNull final String email) throws Exception {
+        if(EmailAddressValidator.isValid(email))
+            this.email = email;
+        else
+            throw new Exception("Invalid mail");
     }
 }
