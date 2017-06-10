@@ -52,7 +52,7 @@ public class ManagerTest {
     public void should_only_reset() throws Exception {
         Resetor resetor = mock(Resetor.class);
         doNothing().when(resetor).reset(user);
-        doNothing().when(resetor).reset(anyObject()); //doThrow ?
+        //doNothing().when(resetor); //doThrow ?
         manager.reset(user, resetor);
         verify(resetor, times(1)).reset(user);
         //verify(user, atLeastOnce()).setPassword(any());
