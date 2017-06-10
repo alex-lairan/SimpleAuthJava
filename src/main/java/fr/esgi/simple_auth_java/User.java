@@ -28,7 +28,7 @@ public class User {
     @NonNull private final PasswordEncrypt encryptor;
     @NotNull @NonNull @Size(min=4) private String password;
     @Setter(AccessLevel.PROTECTED) @Getter(AccessLevel.PROTECTED)
-    private boolean isConnected = false;
+    @Builder.Default private boolean isConnected = false;
 
     public User(HashMap<String, Object> args) {
         this((String) args.get("email"), (String) args.get("first_name"), (String) args.get("last_name"), (PasswordEncrypt) args.get("pswdEncryptor"), (String) args.get("password"));
