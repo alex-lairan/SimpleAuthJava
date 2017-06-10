@@ -16,5 +16,5 @@ public interface Authenticator {
      * Authentified a user
      * @return the {@link User} authentified
      */
-    User signIn(HashMap<String, Object> map, List<User> users) throws AuthenticationException;
+    User signIn() throws AuthenticationException;
 }

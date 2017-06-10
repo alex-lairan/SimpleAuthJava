@@ -6,19 +6,22 @@ import java.util.HashMap;
 import java.util.List;
 
 public class EmailAuthentication implements Authenticator {
+    private List<User> users;
+    private String     email;
+    private String     password;
+
+    public EmailAuthentication(HashMap<String, Object> map, List<User> users) {
+        email    = (String) map.get("email");
+        password = (String) map.get("message");
+
+        this.users = users;
+    }
+
     @Override
-    public User signIn(HashMap<String, Object> map, List<User> users) throws AuthenticationException {
-        String email    = (String) map.get("email");
-        String password = (String) map.get("password");
-
-        User user = users.stream()
+    public User signIn() throws AuthenticationException {
+        return users.stream()
                 .filter(u -> u.getEmail().equals(email))
+                .filter(u -> u.getPassword().equals(u.getEncryptor().encrypt(password)))
                 .findAny().orElseThrow(AuthenticationException::new);
-
-        if(user.getPassword().equals(user.getEncryptor().encrypt(password))) {
-            user.connect();
-            return user;
-        }
-        throw new AuthenticationException();
     }
 }
