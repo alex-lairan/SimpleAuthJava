@@ -24,7 +24,7 @@ import java.util.HashMap;
 @Setter
 @Slf4j
 @Builder
-final public class User extends Model {
+public class User extends Model {
     static {
         validatePresenceOf("email", "first_name", "last_name", "password");
         validateEmailOf("email");
@@ -51,7 +51,7 @@ final public class User extends Model {
         this(email, first_name, last_name, encryptor, password, false);
     }
 
-    @ConstructorProperties({"email", "first_name", "last_name", "encryptor", "password", "isConnected"})
+    @ConstructorProperties({"email", "first_name", "last_name", "encryptor", "password", "id", "isConnected"})
     protected User(@NonNull final String email, @NonNull final String first_name, @NonNull final String last_name, @NonNull final PasswordEncrypt encryptor, @NonNull final String password, final int id, final boolean is_connected) {
         this.setEmail(email);
         this.setFirst_name(first_name);
