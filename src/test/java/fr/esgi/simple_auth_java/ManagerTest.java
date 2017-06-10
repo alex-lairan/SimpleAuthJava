@@ -43,10 +43,9 @@ public class ManagerTest {
     @Test
     public void should_only_signIn() throws Exception {
         Authenticator auth = mock(Authenticator.class);
-        when(auth.signIn(new HashMap<>(), new LinkedList<>())).thenReturn(user);
+        when(auth.signIn()).thenReturn(user);
         assertThat(manager.signIn(auth)).isSameAs(user);
-        verifyZeroInteractions(user);
-        verify(auth, times(1)).signIn(new HashMap<>(), new LinkedList<>());
+        verify(auth, times(1)).signIn();
     }
 
     @Test
