@@ -44,14 +44,10 @@ public final class Manager {
      * @param authenticator the system / implementation
      * @return th user identified
      */
-    public User signIn(@NonNull final Authenticator authenticator) {
+    public User signIn(@NonNull final Authenticator authenticator) throws AuthenticationException {
         log.trace("signIn with {}", authenticator);
-        User result = null;
-        try {
-            result = authenticator.signIn(new HashMap<>(), new ArrayList<User>());
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-        }
+        User result = authenticator.signIn();
+        result.connect();
         log.trace("signUp user : {}", result);
         return result;
     }
