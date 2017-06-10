@@ -88,25 +88,10 @@
     </scm>
 
     <properties>
+        <environments>development</environments>
+        <!-- maven project params -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <encoding.format>UTF-8</encoding.format>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Java libs version -->
-        <lombok.version>1.16.16</lombok.version>
-        <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
-        <javax_el.version>3.0.0</javax_el.version>
-        <junit.version>4.12</junit.version>
-        <JUnitParams.version>1.1.0</JUnitParams.version>
-        <assertj-core.version>3.8.0</assertj-core.version>
-        <mockito-all.version>1.10.19</mockito-all.version>
-        <log.logback.version>1.2.3</log.logback.version>
-        <log.slf4j.version>1.7.25</log.slf4j.version>
-
-        <activejdbc.version>1.4.13</activejdbc.version>
-        <environments>development</environments>
-
         <encoding.format>UTF-8</encoding.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -258,6 +243,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+            </plugin>
             <plugin>
                 <groupId>org.javalite</groupId>
                 <artifactId>activejdbc-instrumentation</artifactId>
