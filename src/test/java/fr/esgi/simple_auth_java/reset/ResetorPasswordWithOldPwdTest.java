@@ -8,15 +8,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 /**
  * Created by Yohan FAIRFORT on 08/06/2017.
  */
-public class ResetorPasswordByMailTest {
+public class ResetorPasswordWithOldPwdTest {
     @Mock
     User testUser;
     Manager testManager = new Manager();
@@ -29,22 +27,24 @@ public class ResetorPasswordByMailTest {
         Mockito.reset(testUser);
     }
 
-    @Test(expected = WrongMailException.class)
-    public void should_fail_because_wrong_mail()
+    @Test(expected = WeakPasswordException.class)
+    public void should_fail_because_weak_new_password()
     {
-        testUser.setEmail(null);
+        testUser.setPassword("weak");
         testManager.reset(testUser, resetPasswordByMail);
     }
+
+    @Test(expected= BadPasswordMatchException.class)
+    public void should_fail_because_bad_password()
+    {
+        testManager.reset(testUser, resetPasswordByMail);
+    }
+
     @Test
     public void should_success()
     {
-        String oldPass = testUser.getPassword();
+        User oldUser = testUser;
         testManager.reset(testUser, resetPasswordByMail);
-        try {
-            TimeUnit.MINUTES.sleep(30);
-            assertThat(oldPass).isNotEqualTo(testUser.getPassword());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        assertThat(testUser).isNotSameAs(oldUser);
     }
 }

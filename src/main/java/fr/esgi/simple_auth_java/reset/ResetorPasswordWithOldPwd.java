@@ -13,6 +13,6 @@ public class ResetorPasswordWithOldPwd implements Resetor {
      */
     @Override
     public void reset(User user) throws IllegalResetException, ResetException {
-        ;
+
     }
 }

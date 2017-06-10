@@ -14,6 +14,5 @@ public class ResetorPasswordByMail implements Resetor {
      */
     @Override
     public void reset(@NonNull final User user) throws IllegalResetException, ResetException {
-
     }
 }

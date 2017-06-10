@@ -21,7 +21,7 @@ public class ResetTest {
     @Test
     public void should_success()
     {
-
+        testManager.reset(testUser, resetPasswordWithTempPwdByMail);
     }
 }
 

@@ -14,6 +14,6 @@ public class ResetorPasswordWithTempPwdByMail implements Resetor {
      */
     @Override
     public void reset(@NonNull final User user) throws IllegalResetException, ResetException {
-        ;
+
     }
 }
