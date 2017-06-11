@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Created by Blixel on 04/06/2017.
+ * @author Tristan
  */
 @RunWith(JUnitParamsRunner.class)
 public class PasswordEncryptSHA256Test {

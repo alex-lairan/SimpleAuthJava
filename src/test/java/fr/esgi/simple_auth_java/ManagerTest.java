@@ -11,14 +11,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by Blixel on 04/06/2017.
+ * @author Tristan
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ManagerTest {

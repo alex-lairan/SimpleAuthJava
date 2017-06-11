@@ -1,2 +1,4 @@
 .idea/
 SimpleAuthJava.iml
+target/classes/*
+target/test-classes/*
