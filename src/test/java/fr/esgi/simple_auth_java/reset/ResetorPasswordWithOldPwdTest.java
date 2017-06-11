@@ -1,11 +1,7 @@
 package fr.esgi.simple_auth_java.reset;
 
-import fr.esgi.simple_auth_java.Manager;
 import fr.esgi.simple_auth_java.User;
-import fr.esgi.simple_auth_java.common.Mailer;
 import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptDisable;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
-import fr.esgi.simple_auth_java.register.Registor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +11,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,40 +22,39 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ResetorPasswordWithOldPwdTest {
-    @Mock User testUser;
-
-    Resetor ResetorPasswordWithOldPwd = new ResetorPasswordWithOldPwd();
+    @Mock private User testUser;
+    private ResetorPasswordWithOldPwd resetor = new ResetorPasswordWithOldPwd();
 
     @Before
     public void setUp() throws Exception {
-        testUser = mock(User.class);
-
+        MockitoAnnotations.initMocks(this);
+        Mockito.reset(testUser);
         when(testUser.getPassword()).thenReturn("oldPassword");
         when(testUser.getEncryptor()).thenReturn(new PasswordEncryptDisable());
-
-        Mockito.reset(testUser);
     }
 
-    @Test(expected = ResetException.class)
-    public void should_fail_because_weak_new_password()
-    {
-        //attend aussi des inputs?
-        testUser.setPassword("weak");
-        ResetorPasswordWithOldPwd.reset(testUser);
+    @Test(expected = IllegalResetException.class)
+    public void should_fail_because_bad_old_password() throws IOException {
+        String simulatedUserInput =
+                "badPassword" + System.getProperty("line.separator")
+                        + "badPassword" + System.getProperty("line.separator")
+                        + "badPassword" + System.getProperty("line.separator");
+        try(InputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes())) {
+            System.setIn(in);
+            resetor.reset(testUser);
+        }
     }
 
     @Test
-    public void should_succeed()
-    {
+    public void should_succeed() throws IOException {
         String simulatedUserInput =
                 "oldPassword" + System.getProperty("line.separator")
                 + "newPasswd" + System.getProperty("line.separator")
                 + "newPasswd" + System.getProperty("line.separator");
-
-        ByteArrayInputStream setIn = new ByteArrayInputStream(simulatedUserInput.getBytes());
-
-        ResetorPasswordWithOldPwd.reset(testUser);
-        System.setIn(setIn);
-        verify(testUser).setPassword("newPasswd");
+        try(InputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes())) {
+            System.setIn(in);
+            resetor.reset(testUser);
+            verify(testUser).setPassword("newPasswd");
+        }
     }
 }
