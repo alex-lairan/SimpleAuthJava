@@ -6,9 +6,6 @@ import junitparams.naming.TestCaseName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -16,12 +13,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Created by Blixel on 04/06/2017.
  */
 @RunWith(JUnitParamsRunner.class)
-public class PasswordEncryptTest {
+public class PasswordEncryptSHA256Test {
     @Test
     @Parameters
     @TestCaseName("{0} => {1}")
     public void should_encrypt(final String pwd, final String hash) throws Exception {
-        assertThat(new PasswordEncrypt(pwd).encrypt()).isNotNull().isNotEmpty().isNotBlank().isEqualTo(hash);
+        assertThat(PasswordEncryptSHA256.hash(pwd)).isNotNull().isNotEmpty().isNotBlank().isEqualTo(hash);
     }
     private String[][] parametersForShould_encrypt() {
         //http://www.di-mgt.com.au/sha_testvectors.html
@@ -34,6 +31,6 @@ public class PasswordEncryptTest {
 
     @Test
     public void should_not_encrypt_null() {
-        assertThatThrownBy(() -> new PasswordEncrypt(null).encrypt()).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> PasswordEncryptSHA256.hash(null)).isInstanceOf(NullPointerException.class);
     }
 }

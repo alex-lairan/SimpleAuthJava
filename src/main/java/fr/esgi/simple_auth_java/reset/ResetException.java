@@ -7,7 +7,7 @@ import java.security.PrivilegedActionException;
  *
  * @author Tristan
  */
-public class ResetException extends RuntimeException {
+public class ResetException extends Exception {
     /**
      * Constructs a new exception with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a

@@ -1,6 +1,6 @@
 package fr.esgi.simple_auth_java;
 
-import fr.esgi.simple_auth_java.auth.Authentificator;
+import fr.esgi.simple_auth_java.auth.Authenticator;
 import fr.esgi.simple_auth_java.register.Registor;
 import fr.esgi.simple_auth_java.reset.Resetor;
 import org.junit.Before;
@@ -39,10 +39,9 @@ public class ManagerTest {
 
     @Test
     public void should_only_signIn() throws Exception {
-        Authentificator auth = mock(Authentificator.class);
+        Authenticator auth = mock(Authenticator.class);
         when(auth.signIn()).thenReturn(user);
         assertThat(manager.signIn(auth)).isSameAs(user);
-        verifyZeroInteractions(user);
         verify(auth, times(1)).signIn();
     }
 
