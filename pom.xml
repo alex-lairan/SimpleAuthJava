@@ -9,7 +9,7 @@
 
     <groupId>fr.esgi</groupId>
     <artifactId>SimpleAuthJava</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Simple Java Authentication, Version 1</name>
     <description>Training project on unit tests in a group project.</description>
