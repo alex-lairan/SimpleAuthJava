@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by Yohan FAIRFORT on 08/06/2017.
@@ -17,9 +18,8 @@ import static org.mockito.Mockito.mock;
 public class ResetorPasswordWithOldPwdTest {
     @Mock
     User testUser;
-    Manager testManager = new Manager();
 
-    Resetor resetPasswordByMail = mock(ResetorPasswordByMail.class);
+    Resetor ResetorPasswordWithOldPwd = new ResetorPasswordWithOldPwd();
 
     @Before
     public void setUp() throws Exception {
@@ -30,21 +30,22 @@ public class ResetorPasswordWithOldPwdTest {
     @Test(expected = WeakPasswordException.class)
     public void should_fail_because_weak_new_password()
     {
+        //attend aussi des inputs?
         testUser.setPassword("weak");
-        testManager.reset(testUser, resetPasswordByMail);
+        ResetorPasswordWithOldPwd.reset(testUser);
     }
 
     @Test(expected= BadPasswordMatchException.class)
     public void should_fail_because_bad_password()
     {
-        testManager.reset(testUser, resetPasswordByMail);
+        ResetorPasswordWithOldPwd.reset(testUser);
     }
 
     @Test
     public void should_success()
     {
         User oldUser = testUser;
-        testManager.reset(testUser, resetPasswordByMail);
+        ResetorPasswordWithOldPwd.reset(testUser);
         assertThat(testUser).isNotSameAs(oldUser);
     }
 }

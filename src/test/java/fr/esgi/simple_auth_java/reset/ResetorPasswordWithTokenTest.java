@@ -16,9 +16,8 @@ import static org.assertj.core.api.Assertions.*;
 public class ResetorPasswordWithTokenTest {
     @Mock
     User testUser;
-    Manager testManager = new Manager();
 
-    Resetor resetPasswordWithToken = mock(ResetorPasswordWithOldPwd.class);
+    Resetor resetPasswordWithToken = new ResetorPasswordWithTempPwdByMail();
 
     @Before
     public void setUp() throws Exception {
@@ -29,15 +28,15 @@ public class ResetorPasswordWithTokenTest {
     @Test(expected = ResetException.class)
     public void should_fail_because_wrong_token()
     {
-        testManager.reset(testUser, resetPasswordWithToken);
+        // attend des inputs?
+        resetPasswordWithToken.reset(testUser);
     }
 
     @Test
     public void should_succeed()
     {
         String oldPassword = testUser.getPassword();
-        testManager.reset(testUser, resetPasswordWithToken);
-
+        resetPasswordWithToken.reset(testUser);
         assertThat(oldPassword).isNotEqualTo(testUser.getPassword());
     }
 }

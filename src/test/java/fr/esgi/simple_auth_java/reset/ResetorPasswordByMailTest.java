@@ -19,7 +19,6 @@ import static org.mockito.Mockito.mock;
 public class ResetorPasswordByMailTest {
     @Mock
     User testUser;
-    Manager testManager = new Manager();
 
     Resetor resetPasswordByMail = mock(ResetorPasswordByMail.class);
 
@@ -33,13 +32,13 @@ public class ResetorPasswordByMailTest {
     public void should_fail_because_wrong_mail()
     {
         testUser.setEmail(null);
-        testManager.reset(testUser, resetPasswordByMail);
+        resetPasswordByMail.reset(testUser);
     }
     @Test
     public void should_success()
     {
         String oldPass = testUser.getPassword();
-        testManager.reset(testUser, resetPasswordByMail);
+        resetPasswordByMail.reset(testUser);
         try {
             TimeUnit.MINUTES.sleep(30);
             assertThat(oldPass).isNotEqualTo(testUser.getPassword());
