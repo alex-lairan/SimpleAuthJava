@@ -21,6 +21,7 @@ public class PhoneAuthentication implements Authenticator {
 
     @Override
     public User signIn() throws AuthenticationException {
+        if(sender == null) { throw new AuthenticationException(); }
         if(!sender.getCode().equals(message)) { throw new AuthenticationException(); }
         return users.stream()
                 .filter(u -> u.getEmail().equals(email))

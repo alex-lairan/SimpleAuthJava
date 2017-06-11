@@ -14,7 +14,7 @@ public class AdminAuthentication implements Authenticator {
 
     public AdminAuthentication(HashMap<String, Object> map, List<User> users) {
         email    = (String) map.get("email");
-        password = (String) map.get("message");
+        password = (String) map.get("password");
         secret   = (String) map.get("secret");
 
         this.users = users;

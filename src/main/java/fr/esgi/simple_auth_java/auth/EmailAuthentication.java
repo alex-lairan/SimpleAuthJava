@@ -12,7 +12,7 @@ public class EmailAuthentication implements Authenticator {
 
     public EmailAuthentication(HashMap<String, Object> map, List<User> users) {
         email    = (String) map.get("email");
-        password = (String) map.get("message");
+        password = (String) map.get("password");
 
         this.users = users;
     }
