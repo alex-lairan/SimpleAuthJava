@@ -37,10 +37,10 @@ public class ResetorPasswordWithTokenByMailTest {
         when(testUser.getEmail()).thenReturn("my@email.com");
         when(testUser.getFirst_name()).thenReturn("first");
         when(testUser.getLast_name()).thenReturn("last");
-        when(testUser.getPassword()).thenReturn("oldPassword");
-        when(testUser.getEncryptor()).thenReturn(new PasswordEncryptDisable());
+        //when(testUser.getPassword()).thenReturn("oldPassword");
+        //when(testUser.getEncryptor()).thenReturn(new PasswordEncryptDisable());
         Mockito.reset(mailer);
-        when(mailer.validate(any())).thenCallRealMethod();
+        //when(mailer.validate(any())).thenCallRealMethod();
         resetor = new ResetorPasswordWithTokenByMail(this.mailer); //problem init of mockito
     }
 
