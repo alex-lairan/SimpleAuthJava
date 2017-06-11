@@ -52,7 +52,7 @@ public class RegisterDB extends DBConnection implements Registor{
 
         Statement statement = null;
 
-        try(Connection connection = dbConnect("..\\SimpleAuthJava\\src\\main\\resources\\database.db")) {
+        try(Connection connection = dbConnect("database.db")) {
             // Autocommit changes
             connection.setAutoCommit(true);
             System.out.println("Opened database successfully");
@@ -66,7 +66,7 @@ public class RegisterDB extends DBConnection implements Registor{
             statement.executeUpdate(sql);
 
             //connection.commit();
-        } catch ( SQLException ex ) {
+        } catch ( SQLException | IOException ex ) {
             throw new SignUpException("Error while inserting a user into the database.", ex);
         }
         System.out.println("Records created successfully");
