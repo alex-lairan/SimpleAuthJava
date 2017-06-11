@@ -3,29 +3,40 @@ package fr.esgi.simple_auth_java.reset;
 import fr.esgi.simple_auth_java.Manager;
 import fr.esgi.simple_auth_java.User;
 import fr.esgi.simple_auth_java.common.Mailer;
+import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptDisable;
+import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
+import fr.esgi.simple_auth_java.register.Registor;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.io.ByteArrayInputStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Yohan FAIRFORT on 08/06/2017.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ResetorPasswordWithOldPwdTest {
-    @Mock
-    User testUser;
-    @Mock
-    Mailer mailer;
+    @Mock User testUser;
+
     Resetor ResetorPasswordWithOldPwd = new ResetorPasswordWithOldPwd();
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        testUser = mock(User.class);
+
+        when(testUser.getPassword()).thenReturn("oldPassword");
+        when(testUser.getEncryptor()).thenReturn(new PasswordEncryptDisable());
+
         Mockito.reset(testUser);
     }
 
@@ -38,10 +49,17 @@ public class ResetorPasswordWithOldPwdTest {
     }
 
     @Test
-    public void should_success()
+    public void should_succeed()
     {
-        User oldUser = testUser;
+        String simulatedUserInput =
+                "oldPassword" + System.getProperty("line.separator")
+                + "newPasswd" + System.getProperty("line.separator")
+                + "newPasswd" + System.getProperty("line.separator");
+
+        ByteArrayInputStream setIn = new ByteArrayInputStream(simulatedUserInput.getBytes());
+
         ResetorPasswordWithOldPwd.reset(testUser);
-        assertThat(testUser).isNotSameAs(oldUser);
+        System.setIn(setIn);
+        verify(testUser).setPassword("newPasswd");
     }
 }

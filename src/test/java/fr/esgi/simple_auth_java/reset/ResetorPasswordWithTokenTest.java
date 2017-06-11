@@ -4,15 +4,18 @@ import fr.esgi.simple_auth_java.Manager;
 import fr.esgi.simple_auth_java.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
 import static org.assertj.core.api.Assertions.*;
 /**
  * Created by Yohan FAIRFORT on 08/06/2017.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ResetorPasswordWithTokenTest {
     @Mock
     User testUser;
