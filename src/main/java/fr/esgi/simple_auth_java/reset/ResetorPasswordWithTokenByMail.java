@@ -12,6 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.simplejavamail.email.EmailBuilder;
 
 import java.io.Console;
+import java.util.Scanner;
 
 /**
  * <p>Implementation for reset password from console with temp pwd by mail.</p>
@@ -43,7 +44,8 @@ public class ResetorPasswordWithTokenByMail implements Resetor {
     public void reset(@NonNull final User user) throws IllegalResetException, ResetException {
         //TODO: permettre à l'utilisateur d'annulé
         System.out.println(">> Reset Password :");
-        final Console console = System.console();
+        //final Console console = System.console();
+        final Scanner scanner = new Scanner(System.in);
         final String token = RandomStringUtils.randomAlphanumeric(10, 21);
         {
             System.out.println("Send temporary password by mail ...");
@@ -54,7 +56,9 @@ public class ResetorPasswordWithTokenByMail implements Resetor {
             int nb = 0;
             while(nb < maxTry) {
                 log.debug("try {}", nb+1);
-                String tkn = String.valueOf(console.readPassword("Your temp password : "));
+                //String tkn = String.valueOf(console.readPassword("Your temp password : "));
+                System.out.print("Your temp password : ");
+                String tkn = String.valueOf(scanner.nextLine());
                 if(token.equals(tkn)) {
                     nb = Integer.MIN_VALUE;
                     break;
@@ -67,9 +71,13 @@ public class ResetorPasswordWithTokenByMail implements Resetor {
             {
                 /* à partir d'ici, utilisateur identifié/confirmé */
                 String verif = new String();
-                String newPwd = String.valueOf(console.readPassword("Your new password : "));
+                //String newPwd = String.valueOf(console.readPassword("Your new password : "));
+                System.out.print("Your new password : ");
+                String newPwd = scanner.nextLine();
                 do {
-                    verif = String.valueOf(console.readPassword("Confirm your new password : "));
+                    //verif = String.valueOf(console.readPassword("Confirm your new password : "));
+                    System.out.print("Confirm your new password : ");
+                    verif = scanner.nextLine();
                 } while(!newPwd.equals(verif));
                 /* nouveau mdp confirmé */
                 log.trace("set user password");
@@ -77,5 +85,6 @@ public class ResetorPasswordWithTokenByMail implements Resetor {
                 System.out.println("Password changed !");
             }
         }
+        scanner.close();
     }
 }

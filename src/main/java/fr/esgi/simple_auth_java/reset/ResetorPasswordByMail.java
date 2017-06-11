@@ -41,7 +41,6 @@ public class ResetorPasswordByMail implements Resetor {
     public void reset(@NonNull final User user) throws IllegalResetException, ResetException {
         //TODO: permettre à l'utilisateur d'annulé
         System.out.println(">> Reset Password :");
-        final Console console = System.console();
         final String newPwd = RandomStringUtils.randomAlphanumeric(10, 21);
         {
             System.out.println("Send new password by mail ...");
