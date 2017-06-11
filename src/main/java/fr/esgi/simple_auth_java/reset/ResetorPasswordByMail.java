@@ -24,11 +24,26 @@ import java.io.Console;
 @EqualsAndHashCode
 public class ResetorPasswordByMail implements Resetor {
     /**
+     * Default constructor
+     */
+    public ResetorPasswordByMail() {
+        this.mailer = Mailer.getInstance();
+    }
+
+    /**
+     * Constructor for unit tests
+     * @param mailer mailer (mock)
+     */
+    ResetorPasswordByMail(@NonNull final Mailer mailer) {
+        this.mailer = mailer;
+    }
+
+    /**
      * For permit tests
      */
     @Setter(AccessLevel.PACKAGE)
     @NonNull
-    private Mailer mailer = Mailer.getInstance();
+    private Mailer mailer;
 
     /**
      * Reset identification of a user

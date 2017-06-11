@@ -2,11 +2,7 @@ package fr.esgi.simple_auth_java.reset;
 
 import fr.esgi.simple_auth_java.User;
 import fr.esgi.simple_auth_java.common.Mailer;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.simplejavamail.email.EmailBuilder;
@@ -28,10 +24,25 @@ public class ResetorPasswordWithTokenByMail implements Resetor {
     private final static int maxTry = 3;
 
     /**
+     * Default constructor
+     */
+    public ResetorPasswordWithTokenByMail() {
+        this.mailer = Mailer.getInstance();
+    }
+
+    /**
      * For permit tests
      */
     @Setter(AccessLevel.PACKAGE)
-    @NonNull private Mailer mailer = Mailer.getInstance();
+    @NonNull private final Mailer mailer;
+
+    /**
+     * Constructor for unit tests
+     * @param mailer mailer (mock)
+     */
+    ResetorPasswordWithTokenByMail(@NonNull final Mailer mailer) {
+        this.mailer = mailer;
+    }
 
     /**
      * Reset identification of a user
