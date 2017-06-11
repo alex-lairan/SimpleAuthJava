@@ -6,6 +6,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Console;
+import java.util.Scanner;
 
 /**
  * <p>Implementation for reset password from console with the old pwd.</p>
@@ -31,12 +32,15 @@ public class ResetorPasswordWithOldPwd implements Resetor {
     public void reset(User user) throws IllegalResetException, ResetException {
         //TODO: permettre à l'utilisateur d'annulé
         System.out.println(">> Reset Password :");
-        final Console console = System.console();
+        //final Console console = System.console();
+        try(final Scanner scanner = new Scanner(System.in);)
         {
             int nb = 0;
             while(nb < maxTry) {
                 log.debug("try {}", nb+1);
-                String old = user.getEncryptor().encrypt(String.valueOf(console.readPassword("Your old password : ")));
+                //String old = user.getEncryptor().encrypt(String.valueOf(console.readPassword("Your old password : ")));
+                System.out.print("Your old password : ");
+                String old = user.getEncryptor().encrypt(scanner.nextLine().trim());
                 if(user.getPassword().equals(old)) {
                     nb = Integer.MIN_VALUE;
                     break;
@@ -49,9 +53,13 @@ public class ResetorPasswordWithOldPwd implements Resetor {
             {
                 /* à partir d'ici, utilisateur identifié/confirmé */
                 String verif = new String();
-                String newPwd = String.valueOf(console.readPassword("Your new password : "));
+                //String newPwd = String.valueOf(console.readPassword("Your new password : "));
+                System.out.print("Your new password : ");
+                String newPwd = scanner.nextLine().trim();
                 do {
-                    verif = String.valueOf(console.readPassword("Confirm your password : "));
+                    //verif = String.valueOf(console.readPassword("Confirm your password : "));
+                    System.out.print("Confirm your password : ");
+                    verif = scanner.nextLine().trim();
                 } while(!newPwd.equals(verif));
                 /* nouveau mdp confirmé */
                 log.trace("set user password");
