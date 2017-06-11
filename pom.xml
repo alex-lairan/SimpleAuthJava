@@ -100,9 +100,10 @@
         <junit.version>4.12</junit.version>
         <JUnitParams.version>1.1.0</JUnitParams.version>
         <assertj-core.version>3.8.0</assertj-core.version>
-        <mockito-all.version>1.10.19</mockito-all.version>
         <log.logback.version>1.2.3</log.logback.version>
         <log.slf4j.version>1.7.25</log.slf4j.version>
+        <mockito-core.version>2.7.22</mockito-core.version>
+        <sqlite-jdbc.version>3.16.1</sqlite-jdbc.version>
     </properties>
 
     <dependencies>
@@ -151,11 +152,16 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito-all.version}</version>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite-jdbc.version}</version>
+        </dependency>
         <!-- Logging -->
         <!--<dependency>
             <groupId>org.slf4j</groupId>
