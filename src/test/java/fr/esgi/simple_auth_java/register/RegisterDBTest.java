@@ -1,20 +1,11 @@
 package fr.esgi.simple_auth_java.register;
 
 import fr.esgi.simple_auth_java.User;
-import fr.esgi.simple_auth_java.password_encrypt.PasswordEncryptSHA256;
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 /**
