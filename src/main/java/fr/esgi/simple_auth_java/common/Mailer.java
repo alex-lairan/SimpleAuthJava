@@ -8,6 +8,9 @@ import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.util.ConfigLoader;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Mailer system.
  * Log email by default instead of send really them.
@@ -19,11 +22,16 @@ import org.simplejavamail.util.ConfigLoader;
 @ToString
 @Slf4j
 public class Mailer {
-    final private org.simplejavamail.mailer.Mailer mailer = new org.simplejavamail.mailer.Mailer();
+    final private org.simplejavamail.mailer.Mailer mailer;
 
     public Mailer() {
-        ConfigLoader.loadProperties(this.getClass().getResourceAsStream("simple-java-mail.properties"), false);
-        //this.mailer.setTransportModeLoggingOnly(true);
+        try(final InputStream conf = this.getClass().getResourceAsStream("simple-java-mail.properties")) {
+            ConfigLoader.loadProperties(conf, false);
+            this.mailer = new org.simplejavamail.mailer.Mailer();
+            //this.mailer.setTransportModeLoggingOnly(true);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while initialisation of Mailer", e); //TODO: create proper exception
+        }
     }
 
     public boolean validate(@NonNull final Email mail) {
