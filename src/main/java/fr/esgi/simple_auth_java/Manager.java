@@ -1,25 +1,22 @@
 package fr.esgi.simple_auth_java;
 
-import fr.esgi.simple_auth_java.auth.AuthenticationException;
-import fr.esgi.simple_auth_java.auth.Authenticator;
+import fr.esgi.simple_auth_java.auth.Authentificator;
 import fr.esgi.simple_auth_java.register.Registor;
 import fr.esgi.simple_auth_java.register.SignUpException;
+import fr.esgi.simple_auth_java.reset.IllegalResetException;
+import fr.esgi.simple_auth_java.reset.ResetException;
 import fr.esgi.simple_auth_java.reset.Resetor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * Manage actions on a user.
  *
  * @author Tristan
  * @see Registor
- * @see Authenticator
+ * @see Authentificator
  * @see Resetor
  * @see User
  */
@@ -41,13 +38,12 @@ public final class Manager {
 
     /**
      * Sign In a user with a system
-     * @param authenticator the system / implementation
+     * @param authentificator the system / implementation
      * @return th user identified
      */
-    public User signIn(@NonNull final Authenticator authenticator) throws AuthenticationException {
-        log.trace("signIn with {}", authenticator);
-        User result = authenticator.signIn();
-        result.connect();
+    public User signIn(@NonNull final Authentificator authentificator) {
+        log.trace("signIn with {}", authentificator);
+        final User result = authentificator.signIn();
         log.trace("signUp user : {}", result);
         return result;
     }
@@ -56,8 +52,9 @@ public final class Manager {
      * Reset user's id with a system
      * @param user the user to reset
      * @param resetor the system / implementation
+     * @throws Exception an error occur during reset
      */
-    public void reset(@NonNull User user, @NonNull final Resetor resetor) throws Exception {
+    public void reset(@NonNull User user, @NonNull final Resetor resetor) throws Exception { //TODO: create a "ManagerException" or "OperationException"
         log.trace("reset {} with {}", user, resetor);
         resetor.reset(user);
         log.trace("reset end for {}", user);
