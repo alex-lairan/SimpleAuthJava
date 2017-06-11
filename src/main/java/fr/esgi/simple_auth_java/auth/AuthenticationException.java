@@ -7,7 +7,7 @@ package fr.esgi.simple_auth_java.auth;
 /**
  * Custom exception for user registration
  */
-public class AuthenticationException extends Exception {
+public class AuthenticationException extends RuntimeException {
     public AuthenticationException() { super(); }
     public AuthenticationException(String message) { super(message); }
     public AuthenticationException(String message, Throwable cause) { super(message, cause); }

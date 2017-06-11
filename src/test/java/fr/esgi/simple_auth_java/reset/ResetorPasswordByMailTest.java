@@ -28,7 +28,7 @@ public class ResetorPasswordByMailTest {
         Mockito.reset(testUser);
     }
 
-    @Test(expected = WrongMailException.class)
+    @Test(expected = ResetException.class)
     public void should_fail_because_wrong_mail()
     {
         testUser.setEmail(null);
@@ -39,11 +39,6 @@ public class ResetorPasswordByMailTest {
     {
         String oldPass = testUser.getPassword();
         resetPasswordByMail.reset(testUser);
-        try {
-            TimeUnit.MINUTES.sleep(30);
-            assertThat(oldPass).isNotEqualTo(testUser.getPassword());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        assertThat(testUser.getPassword()).isNotEqualTo(oldPass);
     }
 }

@@ -17,7 +17,7 @@ public class ResetorPasswordWithTokenTest {
     @Mock
     User testUser;
 
-    Resetor resetPasswordWithToken = new ResetorPasswordWithTempPwdByMail();
+    Resetor resetPasswordWithToken = new ResetorPasswordWithTokenByMail();
 
     @Before
     public void setUp() throws Exception {

@@ -2,6 +2,7 @@ package fr.esgi.simple_auth_java.reset;
 
 import fr.esgi.simple_auth_java.Manager;
 import fr.esgi.simple_auth_java.User;
+import fr.esgi.simple_auth_java.common.Mailer;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,7 +19,8 @@ import static org.mockito.Mockito.verify;
 public class ResetorPasswordWithOldPwdTest {
     @Mock
     User testUser;
-
+    @Mock
+    Mailer mailer;
     Resetor ResetorPasswordWithOldPwd = new ResetorPasswordWithOldPwd();
 
     @Before
@@ -27,17 +29,11 @@ public class ResetorPasswordWithOldPwdTest {
         Mockito.reset(testUser);
     }
 
-    @Test(expected = WeakPasswordException.class)
+    @Test(expected = ResetException.class)
     public void should_fail_because_weak_new_password()
     {
         //attend aussi des inputs?
         testUser.setPassword("weak");
-        ResetorPasswordWithOldPwd.reset(testUser);
-    }
-
-    @Test(expected= BadPasswordMatchException.class)
-    public void should_fail_because_bad_password()
-    {
         ResetorPasswordWithOldPwd.reset(testUser);
     }
 
